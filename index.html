@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/search.js"></script>
     <script>
       const test = () => {
         console.log('arrow function: OK');
@@ -28,8 +29,6 @@
         t1.print();
         t1.alert();
       }
-      
-      
       
       function* genSwitch(contents){
         const contentsButton = "." + contents + ".button";
@@ -59,78 +58,15 @@
         switchViewFree.next();
       }
       
-
-      
-      class Search {
-        constructor(){
-          this.tag = $('input[name="tag"]').val();
-          this.userName = $('input[name="userName"]').val().replace(/[@＠]/g, '').replace(/[　 ]$/, '');
-          this.word = $('input[name="word"]').val();
-          this.wordIsAnd = $('input[name="wordIsAnd"]').val();
-          //this.dateIsChecked = $('input[name=date]:checked').val();
-          this.beginDate = $('input[name="beginDate"]').val();
-          this.endDate = $('input[name="endDate"]').val();
-        }
-        
-        jumpURL(){
-          const userNameAry = this.userName.split(/[ 　]/);
-          const wordAry = this.word.split(/[ 　]/);
-          const URL = 'https://twitter.com/search?q=';
-          
-          let keyWord = this.tag;
-          
-          if(this.word != ''){
-            keyWord += ' (' + wordAry[0] + ') ';
-            if (wordAry.length > 1){
-              for (let i = 1; i < wordAry.length; i++){
-                if (this.wordIsAnd == 0) keyWord += 'OR';
-                keyWord += ' (' + wordAry[i] + ') ';
-              }
-            }
-          }
-          
-          if(this.userName != ''){
-            keyWord += ' (from:' + userNameAry[0] + ')';
-            if (userNameAry.length > 1){
-              for (let i = 1; i < userNameAry.length; i++){
-                keyWord += 'OR(from:' + userNameAry[i] + ')';
-              }
-            }
-          }
-          //if(dateIsChecked){}
-          if(this.beginDate != ''){
-            keyWord += ' since:' + this.beginDate;
-          }
-          if(this.endDate != ''){
-            keyWord += ' until:' + this.endDate;
-          }
-          
-          keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
-          keyWord = encodeURI(keyWord);             //URLエンコード
-          keyWord = keyWord.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
-          window.open(URL+keyWord);
-        }
-      }
-      
-      
-      
-      const run = () => {
-        const search = new Search();
-        search.jumpURL();
-      }
-      
-      const reset = () => {
-        if(window.confirm('入力内容をすべてリセットしてよろしいですか？')){
-          $('input[name="userName"]').val()='';
-          $('input[name="word"]').val()='';
-          $('input[name="beginDate"]').val()='';
-          $('input[name="endDate"]').val()='';
-        }
+      const switchViewBug = genSwitch('bug');
+      const nextViewBug= () => {
+        switchViewBug.next();
       }
       
       $ (onLoad => {
         switchViewDate.next();
         switchViewFree.next();
+        $('#lastModified').html('('+document.lastModified+ '時点)');
       });
 
     </script>
@@ -139,7 +75,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver0.99</h1>
+      <h1>くろりんアート簡単検索ツール ver0.99a</h1>
     </header>
     
     <section class="item">
@@ -148,8 +84,6 @@
       <h3 class="block">マニュアル</h3><p class="manual button" onclick="nextViewManual()">閉じる ▲</p>
       
       <div class="manual item">
-        <hr>
-        
         <h3>ユーザー指定(省略可)</h3>
         <p>
           ツイートしたユーザーを絞って検索します。検索に使えるのは、スクリーンネームのみです。<br>
@@ -177,12 +111,29 @@
 
         <hr>
         
-        <h3>お問い合わせ</h3>
-        <p>
-          本サイトについての不具合やご意見、ご不明な点等ございましたら、<a href="https://twitter.com/durian3960" target="_blank">サイト運営のTwitter</a>まで。
-        </p>
+        <h3 class="block">現在確認中の不具合</h3><p class="bug button" onclick="nextViewBug()">閉じる ▲</p>
+        <div class="bug item">
+          <p id="lastModified"></p>
+          <hr>
+          <h3>スマホ</h3>
+          <p>不具合は未確認</p>
+          <hr>
+          <h3>PC</h3>
+          <ul>
+            <li>PC版Twitter（新UI）において、ページ遷移後、話題のツイート以外を選択すると「問題が発生しました」と表示される場合がある。何も入力せずにそのまま検索ボタンを押した場合や<a href="https://yukuduri.blog.fc2.com/blog-entry-133.html" target="_blank">強制的に旧UIに戻している</a>場合などは発生しない。（Microsoft Edge 44.18362.267.0で当該症状を確認）</li>
+            <ul>
+              <li>新UIでの仕様変更により起こっているバグの可能性。話題のツイート以外を選択時の遷移先URL自体には問題ないため、Twitter側の対応待ちとしか言えないのが現状。</li>
+            </ul>
+          </ul>
+        </div>
+        
 
         <hr>
+        
+        <h3>お問い合わせ</h3>
+        <p>
+          本サイトについての、上記以外の不具合やご意見、ご不明な点等ございましたら、<a href="https://twitter.com/durian3960" target="_blank">サイト運営者のTwitter</a>まで。
+        </p>
       </div>
 
       <hr>

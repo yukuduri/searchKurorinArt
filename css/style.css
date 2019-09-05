@@ -1,6 +1,9 @@
 html{
   font-family: "M PLUS 1p";
 }
+li {
+  text-align: left;
+}
 
 .item {
   width: 100%;
@@ -59,6 +62,10 @@ html{
 
 .free {
   background-color: #ffff83;
+}
+
+.bug {
+  background-color: #ffbb83;
 }
 
 .reset {
