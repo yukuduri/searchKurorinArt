@@ -108,22 +108,6 @@
             URL += ' until:' + this.endDate;
           }
           
-          switch (this.option){
-            case 'wadai':
-              URL += '&vertical=default';
-              break;
-            case 'images':
-              URL += '&f=images';
-              break;
-            case 'videos':
-              URL += '&f=videos';
-              break;
-            case 'all':
-            default:
-              URL += '&f=tweets';
-              
-          }
-          
           URL = URL.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
           URL = encodeURI(URL);             //URLエンコード
           URL = URL.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
@@ -156,7 +140,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver0.9</h1>
+      <h1>くろりんアート簡単検索ツール ver0.9a</h1>
     </header>
     
     <section class="item">
@@ -191,13 +175,6 @@
           OR検索：いずれかを含むものを検索<br>
           AND検索とOR検索を切り替えることもできます。単語欄の下のスイッチで切り替えてください<br>
         </p>
-        
-        <hr>
-        
-        <h3>検索オプション</h3>
-        <p>
-          検索する対象ツイートの絞り込みができます。
-        </p>
 
         <hr>
         
@@ -226,13 +203,6 @@
           OR検索 <input type="range" name="wordIsAnd" min="0" max="1" value="1"> AND検索
         </div>
         
-        検索オプション:
-        <select name="option">
-          <option value="wadai">話題のツイート</option>
-          <option value="all" selected>すべてのツイート</option>
-          <option value="images">画像のみ</option>
-          <option value="videos">動画のみ</option>
-        </select>
       </form>
       
       <p class="button" onclick="run()">検索</p><p class="button reset" onclick="reset()">リセット</p>
