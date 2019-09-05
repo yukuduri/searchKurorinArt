@@ -70,49 +70,45 @@
           //this.dateIsChecked = $('input[name=date]:checked').val();
           this.beginDate = $('input[name="beginDate"]').val();
           this.endDate = $('input[name="endDate"]').val();
-          this.option = $('select[name="option"]').val();
-          //console.log(this.dateIsChecked);
-          console.log(this.beginDate);
-          this
         }
         
         jumpURL(){
           const userNameAry = this.userName.split(/[ 　]/);
           const wordAry = this.word.split(/[ 　]/);
-          let URL = 'https://twitter.com/search?src=typd&q=';
-          URL += this.tag;
+          const URL = 'https://twitter.com/search?q=';
+          
+          let keyWord = this.tag;
           
           if(this.word != ''){
-            URL += ' (' + wordAry[0] + ') ';
+            keyWord += ' (' + wordAry[0] + ') ';
             if (wordAry.length > 1){
               for (let i = 1; i < wordAry.length; i++){
-                if (this.wordIsAnd == 0) URL += 'OR';
-                URL += ' (' + wordAry[i] + ') ';
+                if (this.wordIsAnd == 0) keyWord += 'OR';
+                keyWord += ' (' + wordAry[i] + ') ';
               }
             }
           }
           
           if(this.userName != ''){
-            URL += ' (from:' + userNameAry[0] + ')';
+            keyWord += ' (from:' + userNameAry[0] + ')';
             if (userNameAry.length > 1){
               for (let i = 1; i < userNameAry.length; i++){
-                URL += 'OR(from:' + userNameAry[i] + ')';
+                keyWord += 'OR(from:' + userNameAry[i] + ')';
               }
             }
           }
           //if(dateIsChecked){}
           if(this.beginDate != ''){
-            URL += ' since:' + this.beginDate;
+            keyWord += ' since:' + this.beginDate;
           }
           if(this.endDate != ''){
-            URL += ' until:' + this.endDate;
+            keyWord += ' until:' + this.endDate;
           }
           
-          URL = URL.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
-          URL = encodeURI(URL);             //URLエンコード
-          URL = URL.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
-          console.log(URL);
-          window.open(URL);
+          keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
+          keyWord = encodeURI(keyWord);             //URLエンコード
+          keyWord = keyWord.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
+          window.open(URL+keyWord);
         }
       }
       
@@ -125,7 +121,10 @@
       
       const reset = () => {
         if(window.confirm('入力内容をすべてリセットしてよろしいですか？')){
-          location.href='/'
+          $('input[name="userName"]').val()='';
+          $('input[name="word"]').val()='';
+          $('input[name="beginDate"]').val()='';
+          $('input[name="endDate"]').val()='';
         }
       }
       
@@ -140,7 +139,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver0.9a</h1>
+      <h1>くろりんアート簡単検索ツール ver0.99</h1>
     </header>
     
     <section class="item">
@@ -202,10 +201,10 @@
 
           OR検索 <input type="range" name="wordIsAnd" min="0" max="1" value="1"> AND検索
         </div>
-        
+        <p class="button" onclick="run()">検索</p><input type="reset" class="button reset" value="リセット">
       </form>
       
-      <p class="button" onclick="run()">検索</p><p class="button reset" onclick="reset()">リセット</p>
+      
       
       
       
