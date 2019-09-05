@@ -1,0 +1,67 @@
+html{
+  font-family: "M PLUS 1p";
+}
+
+.item {
+  width: 100%;
+  padding:10px;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.header {
+  background-color: #7475cb;
+  color:#fff;
+}
+
+.game {
+  background-color: aquamarine;
+}
+
+.heading {
+  
+}
+
+.discliption {
+}
+
+.footer {
+  background-color: #7475ff;
+  color:#fff;
+}
+
+.button {
+  display: inline-block;
+  width:100px;
+  padding: 5px;
+  margin: 10px;
+  border: solid;
+  border-color: #fff;
+  background-color: #ffa500;
+}
+
+.footer > .button {
+  background-color: #ffa5ff;
+  color: #000;
+}
+
+.block {
+  display: inline-block;
+}
+
+.manual{
+  background-color: #99ff87;
+}
+
+.date {
+  background-color: #99ffff;
+}
+
+.free {
+  background-color: #ffff83;
+}
+
+.reset {
+  background-color: #f55;
+  color: #fff;
+}
