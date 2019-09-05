@@ -1,13 +1,17 @@
 html{
   font-family: "M PLUS 1p";
 }
+
+h1, h2, h3, p, li{
+  padding: 5px;
+} 
 li {
   text-align: left;
 }
 
 .item {
   width: 100%;
-  padding:10px;
+  padding:10px 0;
   margin: 5px 0;
   text-align: center;
 }
