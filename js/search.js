@@ -4,7 +4,6 @@ class Search {
     this.userName = $('input[name="userName"]').val().replace(/[@＠]/g, '').replace(/[　 ]$/, '');
     this.word = $('input[name="word"]').val();
     this.wordIsAnd = $('input[name="wordIsAnd"]').val();
-    //this.dateIsChecked = $('input[name=date]:checked').val();
     this.beginDate = $('input[name="beginDate"]').val();
     this.endDate = $('input[name="endDate"]').val();
   }
@@ -34,7 +33,6 @@ class Search {
         }
       }
     }
-    //if(dateIsChecked){}
     
     //時間指定しないと日本時間で検索できない
     if(this.beginDate != ''){

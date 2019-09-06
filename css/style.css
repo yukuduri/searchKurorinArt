@@ -45,6 +45,7 @@ li {
   border: solid;
   border-color: #fff;
   background-color: #ffa500;
+  cursor: pointer;
 }
 
 .footer > .button {
