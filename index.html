@@ -76,7 +76,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver1.00</h1>
+      <h1>くろりんアート簡単検索ツール ver1.0a</h1>
     </header>
     
     <section class="item">
@@ -96,7 +96,10 @@
         
         <h3>日付の指定(省略可)</h3>
         <p>
-          検索するツイートの期間を指定します。<br>どちらか片方のみの指定でも問題ありません。
+          検索するツイートの期間(日本時間)を指定します。<br>どちらか片方のみの指定でも問題ありません。
+        </p>
+        <p class="color-red">
+          ※期間を1日に限定したい場合は両方に同じ日付を入力してください。
         </p>
         
         <hr>
@@ -146,9 +149,9 @@
         ユーザー指定：<input type="text" name="userName" placeholder="省略可"><br><br>
         日付の指定<p id="date" class="date button" onclick="nextViewDate()">閉じる ▲</p><br>
         <div class="date item">
-          <!--<label><input type="checkbox"　name="date" value="1" checked="checked">日付指定する</label><br><br>-->
           <input type="date" name="beginDate">から<br>
           <input type="date" name="endDate">まで<br>
+          <p class="color-red">※期間を1日に限定したい場合は同じ日付を入力してください。</p>
         </div> 
         フリーワード設定<p id="date" class="free button" onclick="nextViewFree()">閉じる ▲</p><br>
         <div class="free item">

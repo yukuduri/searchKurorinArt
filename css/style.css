@@ -76,3 +76,8 @@ li {
   background-color: #f55;
   color: #fff;
 }
+
+.color-red{
+  color: #f00;
+  font-weight: bold;
+}

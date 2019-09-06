@@ -35,11 +35,13 @@ class Search {
       }
     }
     //if(dateIsChecked){}
+    
+    //時間指定しないと日本時間で検索できない
     if(this.beginDate != ''){
-      keyWord += ' since:' + this.beginDate;
+      keyWord += ' since:' + this.beginDate + '_00:00:00_JST';
     }
     if(this.endDate != ''){
-      keyWord += ' until:' + this.endDate;
+      keyWord += ' until:' + this.endDate + '_23:59:59_JST';
     }
 
     keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
