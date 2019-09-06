@@ -76,7 +76,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver1.0d</h1>
+      <h1>くろりんアート簡単検索ツール ver1.0e</h1>
     </header>
     
     <section class="item">
@@ -106,7 +106,7 @@
           スペースで区切ると、複数のワードをAND検索もしくはOR検索します。<br>
           AND検索：すべて含むものを検索<br>
           OR検索：いずれかを含むものを検索<br>
-          AND検索とOR検索を切り替えることもできます。単語欄の下のスイッチで切り替えてください<br>
+          単語欄の下のスイッチでAND検索とOR検索とを切り替えてください<br>
         </p>
         <hr>
         <h3 class="block">現在確認中の不具合</h3><p class="bug button" onclick="nextViewBug()">閉じる ▲</p>
@@ -121,9 +121,9 @@
           <hr>
           <h3>PC</h3>
           <ul>
-            <li>PC版Twitter（新UI）において、ページ遷移後、話題のツイート以外を選択すると「問題が発生しました」と表示される場合がある。<a href="https://yukuduri.blog.fc2.com/blog-entry-133.html" target="_blank">強制的に旧UIに戻している</a>場合などは発生しない。（Microsoft Edge 44.18362.267.0で当該症状を確認）</li>
+            <li>一部環境下でのPC版Twitter（新UI）において、検索結果画面で「最新」「画像」「動画」などにタブを切り替えると「問題が発生しました」と表示される場合がある。<a href="https://yukuduri.blog.fc2.com/blog-entry-133.html" target="_blank">強制的に旧UIに戻している</a>場合などは発生しない。（Microsoft Edge 44.18362.267.0で当該症状を確認）</li>
             <ul>
-              <li>新UIでの仕様変更により起こっているバグの可能性。話題のツイート以外を選択時の遷移先URL自体には問題ないため、Twitter側の対応待ちとしか言えないのが現状。</li>
+              <li>新UIでの仕様変更により起こっているバグの可能性。タブ切り替え時の遷移先URL自体には問題ないため、Twitter側の対応待ちとしか言えないのが現状。</li>
             </ul>
           </ul>
         </div>
@@ -133,6 +133,7 @@
           本サイトについての、上記以外の不具合やご意見、ご不明な点等ございましたら、<a href="https://twitter.com/durian3960" target="_blank">サイト運営者のTwitter</a>まで。
         </p>
       </div>
+      <hr>
       <div class="item">
         <form name="searcher" class="item">
           <p>検索対象タグ（編集不可）：<input type="text" name="tag" value="#くろりんアート" readonly></p>
