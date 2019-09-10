@@ -7,17 +7,15 @@ class Search {
     this.beginDate = $('input[name="beginDate"]').val();
     this.endDate = $('input[name="endDate"]').val();
     this.option = $('select[name="searchOption"]').val();
-    console.log(this.option);
   }
 
-  jumpURL(){
-    const userNameAry = this.userName.split(/[ 　]+/);
-    const wordAry = this.word.split(/[ 　]/);
+  makeSearchURL(){
     const URL = 'https://twitter.com/search?q=';
 
     let keyWord = this.tag;
 
     if(this.word != ''){
+      const wordAry = this.word.split(/[ 　]+/);
       keyWord += ' (' + wordAry[0] + ') ';
       if (wordAry.length > 1){
         for (let i = 1; i < wordAry.length; i++){
@@ -28,6 +26,7 @@ class Search {
     }
 
     if(this.userName != ''){
+      const userNameAry = this.userName.split(/[ 　]+/);
       keyWord += ' (from:' + userNameAry[0] + ')';
       if (userNameAry.length > 1){
         for (let i = 1; i < userNameAry.length; i++){
@@ -53,7 +52,40 @@ class Search {
     keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
     keyWord = encodeURI(keyWord);             //URLエンコード
     keyWord = keyWord.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
-    window.open(URL+keyWord);
+    
+    return URL+keyWord;
+  }
+  
+  makeShareURL(option){
+    if(option == 'twitter'){
+      return this.makeSearchURL();
+    }else{
+      //本番環境
+      const URL = `https://yukuduri.github.io/searchKurorinArt/`;
+      
+      let keyWord = '?option=' + this.option + '&wordIsAnd='+ this.wordIsAnd;
+
+      if(this.word != ''){
+        keyWord += '&word=' + this.word;
+      }
+
+      if(this.userName != ''){
+        keyWord += '&userName=' + this.userName;
+      }
+
+      if(this.beginDate != ''){
+        keyWord += '&beginDate=' + this.beginDate;
+      }
+      if(this.endDate != ''){
+        keyWord += '&endDate=' + this.endDate;
+      }
+
+      keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
+      keyWord = encodeURI(keyWord);             //URLエンコード
+      keyWord = keyWord.replace(/#/g, '%23');   //ハッシュタグ#のURLエンコード
+
+      return URL+keyWord;
+    }
   }
 }
 
@@ -61,5 +93,24 @@ class Search {
 
 const run = () => {
   const search = new Search();
-  search.jumpURL();
+  window.open(search.makeSearchURL());
+}
+
+const share = () => {
+  const option = $('select[name="shareOption"]').val();
+  const search = new Search();
+  $('input[name="shareURL"]').val(search.makeShareURL(option));
+  $('#shareText').html('↑を長押しや右クリック等でコピーしてください');
+}
+
+const tweet = () => {
+  const shareURL = $('input[name="shareURL"]').val();
+  let text = 'https://twitter.com/share?text=%23くろりんアート簡単検索ツール%20'
+  if(shareURL != ''){
+    text += ' 検索結果:%0a&url=';
+    text += encodeURIComponent(shareURL);
+  }else{
+    text += '%0a&url=https://yukuduri.github.io/searchKurorinArt/';
+  }
+  window.open(text);
 }

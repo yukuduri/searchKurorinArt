@@ -76,6 +76,13 @@ li {
 .reset {
   background-color: #f55;
   color: #fff;
+  font-weight: bold;
+}
+
+.tweet{
+  background-color: #00acee;
+  color: #fff;
+  font-weight: bold;
 }
 
 .color-red{

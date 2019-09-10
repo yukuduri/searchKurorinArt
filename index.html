@@ -13,6 +13,7 @@
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
+    <script src="js/purl.js"></script>
     <script src="js/search.js"></script>
    
     <script>
@@ -68,10 +69,43 @@
       }
       
       $ (onLoad => {
-        switchViewDate.next();
-        switchViewFree.next();
-        switchViewBug.next();
+        
         $('#lastModified').html('('+document.lastModified+ '時点)');
+        const userName  = purl().param('userName'),
+              word      = purl().param('word'),
+              wordIsAnd = purl().param('wordIsAnd'),
+              beginDate = purl().param('beginDate'),
+              endDate   = purl().param('endDate'),
+              option    = purl().param('option');
+        
+        if(option != null){
+          nextViewManual();
+          
+          $('select[name="searchOption"]').val(option);
+          $('input[name="wordIsAnd"]').val(wordIsAnd);
+          if(userName != null){
+            $('input[name="userName"]').val(userName);
+          }
+          if(word != null){
+            $('input[name="word"]').val(word);
+          }else{
+            switchViewFree.next();
+          }
+          if (beginDate != null || endDate != null){
+            if(beginDate != null){
+              $('input[name="beginDate"]').val(beginDate);
+            }
+            if(endDate != null){
+              $('input[name="endDate"]').val(endDate);
+            }
+          }else{
+            switchViewDate.next();
+          }
+        }else{
+          switchViewFree.next();
+          switchViewDate.next();
+        }
+        switchViewBug.next();
       });
 
     </script>
@@ -80,7 +114,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver1.10</h1>
+      <h1>くろりんアート簡単検索ツール ver2.0</h1>
     </header>
     
     <section class="item">
@@ -119,6 +153,22 @@
           検索するツイートを「画像のみ」「動画のみ」の指定ができます。<br>
           「すべて」を選択すると「画像」と「動画」を含むすべてのツイートを対象に検索します。
         </p>
+        <hr>
+        <h3>検索結果をシェアする</h3>
+        <p>
+          検索結果を共有するためのリンクを生成します。「リンク生成」ボタンで以下に示すURLを生成します。<br>
+          また、「ツイートする」ボタンでURLをツイートできます。
+        </p>
+        <ul>
+          <li>このページ（推奨）</li>
+          <ul>
+            <li>「くろりんアート簡単検索ツール」のシェア用リンクを生成します。シェアされたURLを開いた後でも検索条件を変更できるため、<span class="color-red">非常にオススメ</span>です。</li>
+          </ul>
+          <li>Twitter検索</li>
+          <ul>
+            <li>「検索」ボタンをクリックまたはタップしたときに開くURLを生成します。どうしてもURLが長くなってしまうため、非推奨です。</li>
+          </ul>
+        </ul>
         <hr>
         <h3 class="block">現在確認中の不具合</h3><p class="bug button" onclick="nextViewBug()">閉じる ▲</p>
         <div class="bug item">
@@ -161,8 +211,8 @@
             <p>OR検索 <input type="range" name="wordIsAnd" min="0" max="1" value="1"> AND検索</p>
           </div>
           <p>検索対象：
-            <select name="searchOption" id="searchOption">
-              <option value="ALL">すべて</option>
+            <select name="searchOption">
+              <option value="ALL" selected>すべて</option>
               <option value="images">画像のみ</option>
               <option value="videos">動画のみ</option>
             </select>
@@ -170,6 +220,18 @@
           
           <p class="button" onclick="run()">検索</p><input type="reset" class="button reset" value="リセット">
         </form>
+      </div>
+      <hr>
+      <div class="item">
+        <h3>検索結果をシェアする:</h3>
+        <select name="shareOption">
+          <option value="default" selected>このページ</option>
+          <option value="twitter">Twitter検索</option>
+        </select>
+        <p class="button" onclick="share()">リンク生成</p>
+        <input type="text" style="width: 90%" name="shareURL" onclick="this.select(0,this.value.length)">
+        <p id="shareText"></p>
+        <p class="button tweet" onclick="tweet()">ツイートする</p>
       </div>
     </section>
     
