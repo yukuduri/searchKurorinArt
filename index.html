@@ -9,8 +9,12 @@
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery-1.7.2.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script src="js/search.js"></script>
+   
     <script>
       const test = () => {
         console.log('arrow function: OK');
@@ -76,7 +80,7 @@
   <body>
     <noscript><section class="item footer"><h1 class="heading">このサイトの正常な表示・動作には、JavaScriptが必要です。<br>JavaScript対応のブラウザで、JavaScriptを有効にしてから再度アクセスしてください。<br>©2019 yukuduri</h1></section></noscript>
     <header class="item header">
-      <h1>くろりんアート簡単検索ツール ver1.0e</h1>
+      <h1>くろりんアート簡単検索ツール ver1.10</h1>
     </header>
     
     <section class="item">
@@ -89,7 +93,7 @@
         <p>
           ツイートしたユーザーを絞って検索します。検索に使えるのは、スクリーンネームのみです。<br>
           （スクリーンネームは、例えば「@durian3960」など。「@」はあってもなくてもいいです。）<br>
-          空白で区切って複数のスクリーンネームを入力すると、それらのアカウントがツイートした投稿を一覧できます<br>
+          空白で区切って複数のスクリーンネームを入力すると、それらのアカウントがツイートした投稿を一覧できます。<br>
         </p>
         <hr>
         <h3>日付の指定(省略可)</h3>
@@ -102,11 +106,18 @@
         <hr>
         <h3>フリーワード設定(省略可)</h3>
         <p>
-          キーワードを入れて更に絞り込みたいときに使用します。ハッシュタグ(#)も使用可能です<br><br>
+          キーワードを入れて更に絞り込みたいときに使用します。ハッシュタグ(#)も使用可能です<br>
+          <br>
           スペースで区切ると、複数のワードをAND検索もしくはOR検索します。<br>
           AND検索：すべて含むものを検索<br>
           OR検索：いずれかを含むものを検索<br>
-          単語欄の下のスイッチでAND検索とOR検索とを切り替えてください<br>
+          単語欄の下のスイッチでAND検索とOR検索とを切り替えてください。<br>
+        </p>
+        <hr>
+        <h3>検索対象</h3>
+        <p>
+          検索するツイートを「画像のみ」「動画のみ」の指定ができます。<br>
+          「すべて」を選択すると「画像」と「動画」を含むすべてのツイートを対象に検索します。
         </p>
         <hr>
         <h3 class="block">現在確認中の不具合</h3><p class="bug button" onclick="nextViewBug()">閉じる ▲</p>
@@ -149,6 +160,14 @@
             <p>単語：<input type="text" name="word" placeholder="省略可"></p>
             <p>OR検索 <input type="range" name="wordIsAnd" min="0" max="1" value="1"> AND検索</p>
           </div>
+          <p>検索対象：
+            <select name="searchOption" id="searchOption">
+              <option value="ALL">すべて</option>
+              <option value="images">画像のみ</option>
+              <option value="videos">動画のみ</option>
+            </select>
+          </p>
+          
           <p class="button" onclick="run()">検索</p><input type="reset" class="button reset" value="リセット">
         </form>
       </div>

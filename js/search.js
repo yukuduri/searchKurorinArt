@@ -1,15 +1,17 @@
 class Search {
   constructor(){
     this.tag = $('input[name="tag"]').val();
-    this.userName = $('input[name="userName"]').val().replace(/[@＠]/g, '').replace(/[　 ]$/, '');
+    this.userName = $('input[name="userName"]').val().replace(/[@＠]/g, '').replace(/[　 ]+$/, '');
     this.word = $('input[name="word"]').val();
     this.wordIsAnd = $('input[name="wordIsAnd"]').val();
     this.beginDate = $('input[name="beginDate"]').val();
     this.endDate = $('input[name="endDate"]').val();
+    this.option = $('select[name="searchOption"]').val();
+    console.log(this.option);
   }
 
   jumpURL(){
-    const userNameAry = this.userName.split(/[ 　]/);
+    const userNameAry = this.userName.split(/[ 　]+/);
     const wordAry = this.word.split(/[ 　]/);
     const URL = 'https://twitter.com/search?q=';
 
@@ -40,6 +42,12 @@ class Search {
     }
     if(this.endDate != ''){
       keyWord += ' until:' + this.endDate + '_23:59:59_JST';
+    }
+    
+    switch(this.option){
+      case 'images':
+      case 'videos':
+        keyWord += ' filter:' + this.option;
     }
 
     keyWord = keyWord.replace(/[#＃♯]/g, '#');  //ハッシュタグ#の置換
